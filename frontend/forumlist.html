@@ -91,7 +91,7 @@ if ( url.indexOf( "?" ) != -1 ) {
   for ( var i = 0; i < strs.length; i++ ) {  
     theRequest[ strs[ i ].split( "=" )[ 0 ] ] = ( strs[ i ].split( "=" )[ 1 ] );  
   }
-  //console.log( theRequest["generalmeetid"] ); //此时的theRequest就是我们需要的参数；  
+  //console.log( theRequest["generalmeetId"] ); //此时的theRequest就是我们需要的参数；  
 }
         var Main = {
     methods: {
@@ -128,7 +128,7 @@ if ( url.indexOf( "?" ) != -1 ) {
                     success : function(result) {
                         console.log(result);
                         for(var i in result){
-                          if(theRequest["generalmeetid"]==result[i]["belongto"])
+                          if(theRequest["generalmeetId"]==result[i]["belongto"])
                             that.tableData.push(result[i]);
                             
                         }console.log(that.tableData);
