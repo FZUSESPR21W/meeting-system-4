@@ -22,4 +22,8 @@ public interface userMapper {
      * @mbg.generated
      */
     int insertSelective(user record);
+
+    user getUserByAccountNum(String accountNum);
+
+    int updateUser(user record);
 }

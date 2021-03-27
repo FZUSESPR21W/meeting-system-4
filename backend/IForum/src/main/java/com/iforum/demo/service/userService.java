@@ -23,4 +23,14 @@ public class userService implements userMapper {
     public int insertSelective(user record) {
         return 0;
     }
+
+    @Override
+    public user getUserByAccountNum(String accountNum) {
+        return userMapper.getUserByAccountNum(accountNum);
+    }
+
+    @Override
+    public int updateUser(user record) {
+        return userMapper.updateUser(record);
+    }
 }

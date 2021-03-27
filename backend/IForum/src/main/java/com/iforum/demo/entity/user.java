@@ -269,4 +269,18 @@ public class user {
         this.accoutnum = accoutnum;
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "user{" +
+                "id=" + id +
+                ", accoutnum='" + accoutnum + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", identity='" + identity + '\'' +
+                ", joinmeetingid='" + joinmeetingid + '\'' +
+                ", joinsmallforumid='" + joinsmallforumid + '\'' +
+                '}';
+    }
 }
