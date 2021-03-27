@@ -134,7 +134,7 @@
           this.$refs[formName].validate((valid) => {
             
             if(valid){
-              var account = this.registerForm.accountNum;
+              var account = this.registerForm.accountNum.toString();
               var password = this.registerForm.password;
               var list = {
                 "accountNum":account,
@@ -144,12 +144,12 @@
               $.ajax({
                         type: "POST",
                         contentType: "application/json;chatset=UTF-8",
-                        url: "http://120.77.222.192:90/api/user/register",
+                        url: "http://120.77.222.192:90/user/register",
                         data: JSON.stringify(list),
                         dataType:"json",
                         
                         success: function (result) {
-                          
+                          console.log(result);
                           window.location.href = "SelectForums.html?account="+account+"&password="+password;
                           
                         },
