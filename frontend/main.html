@@ -64,15 +64,20 @@
     <div id="app" style="margin:10px 200px">
         <template>
           <el-table
-            :data="tableData"
+          ref="filterTable" :data="tableData.slice((currPage-1)*limitCount,currPage*limitCount)"
             style="width: 100%"
-            max-height="500"
             >
             <el-table-column
               fixed
-              prop="meet"
+              prop="id"
+              label="ID"
+              width="50">
+            </el-table-column>
+            <el-table-column
+              fixed
+              prop="title"
               label="会议"
-              width="900">
+              width="850">
             </el-table-column>
             <el-table-column
               fixed="right"
@@ -80,7 +85,7 @@
               width="120">
               <template slot-scope="scope">
                 <el-button
-                  @click.native.prevent="deleteRow(scope.row)"
+                  @click.native.prevent="transToNextHtml(scope.row)"
                   type="text"
                   size="small">
                   查询
@@ -89,25 +94,58 @@
             </el-table-column>
           </el-table>
         </template>
+        <el-pagination @current-change="currentChange" :current-page="currPage" layout="prev, pager, next" :total="tableData.length"
+            style="text-align: center" :page-size="limitCount">
+          </el-pagination>
         </div>
 
     <script>
         var Main = {
     methods: {
-      deleteRow(val) {
-        window.location.href="b.html?valus="+val.meet;  
+      transToNextHtml(val) {
+        window.location.href="b.html?valus="+val.title;  
         
-      }
+      },
+      currentChange(val) {
+                console.log(val);
+                this.currPage = val;
+            },
     },
     data() {
+      var limitCount = 8;
       return {
-        tableData: [{
-            meet: '2020年第25届欧洲睡眠研究学会大会(ESRS2020)',
-        }, {
-          meet: '2020年第25届国际美容整形外科学会全球大会(ISAPS2020)',
-        }]
+        tableData: [],
+        limitCount: limitCount,
+        currPage: 1,
       }
-    }
+    },
+    mounted(){
+            var that=this;
+            var list = {};
+                $.ajax({
+                    //请求方式
+                    type : "POST",
+                    //请求的媒体类型
+                    contentType: "application/json;charset=UTF-8",
+                    //请求地址
+                    url : "http://localhost:8080/meeting/getAllMeeting",
+                    //数据，json字符串
+                    data : JSON.stringify(list),
+                    //请求成功
+                    success : function(result) {
+                        console.log(result);
+                        for(var i in result){
+                            that.tableData.push(result[i]);
+                            
+                        }console.log(that.tableData);
+                    },
+                    //请求失败，包含具体的错误信息
+                    error : function(e){
+                        console.log(e.status);
+                        console.log(e.responseText);
+                    }
+                });
+        }
   }
 var Ctor = Vue.extend(Main)
 new Ctor().$mount('#app')
