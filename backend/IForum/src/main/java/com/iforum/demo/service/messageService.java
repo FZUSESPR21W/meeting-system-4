@@ -22,7 +22,7 @@ public class messageService implements messageMapper {
 
     @Override
     public int insert(message record) {
-        return 0;
+        return messageMapper.insert(record);
     }
 
     @Override

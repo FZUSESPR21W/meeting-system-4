@@ -132,4 +132,14 @@ public class message {
     public void setContext(String context) {
         this.context = context == null ? null : context.trim();
     }
+
+    @Override
+    public String toString() {
+        return "message{" +
+                "id=" + id +
+                ", time='" + time + '\'' +
+                ", belongto=" + belongto +
+                ", context='" + context + '\'' +
+                '}';
+    }
 }
