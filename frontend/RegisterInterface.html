@@ -132,22 +132,35 @@
       methods: {
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
-            if (valid) {
-              let data=this.registerForm;
-              let formData=new FormData();
-              formData.append('accountNum',data.accountNum);
-              formData.append('password',data.password);
+            
+            if(valid){
+              var account = this.registerForm.accountNum;
+              var password = this.registerForm.password;
+              var list = {
+                "accountNum":account,
+                "password":password
+              };
+              
               $.ajax({
-                url:"http://localhost:8080/api/user/register",
-                type:'post',
-                data:formData,
-                success:function(){
-                }
-              })
-            } else {
-              console.log('error submit!!');
-              return false;
+                        type: "POST",
+                        contentType: "application/json;chatset=UTF-8",
+                        url: "http://120.77.222.192:90/api/user/register",
+                        data: JSON.stringify(list),
+                        dataType:"json",
+                        
+                        success: function (result) {
+                          
+                          window.location.href = "SelectForums.html?account="+account+"&password="+password;
+                          
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+              
+
             }
+              
           });
         },
         resetForm(formName) {
