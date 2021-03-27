@@ -307,7 +307,7 @@
         //1.
 
         if(window.XMLHttpRequest){
-            alert("11");
+
             xmlhttp = new XMLHttpRequest();
         }else{
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
@@ -324,7 +324,7 @@
                     //
                     var str = xmlhttp.responseText;
                     //
-                    alert(str);
+                    alert("提交成功！");
                     var json = JSON.parse(str);
 
                     word.innerText = json;
