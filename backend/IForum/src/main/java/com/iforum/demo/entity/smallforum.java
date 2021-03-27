@@ -132,4 +132,14 @@ public class smallforum {
     public void setBelongto(Integer belongto) {
         this.belongto = belongto;
     }
+
+    @Override
+    public String toString() {
+        return "smallforum{" +
+                "id=" + id +
+                ", smallforumname='" + smallforumname + '\'' +
+                ", smallchairmanid='" + smallchairmanid + '\'' +
+                ", belongto=" + belongto +
+                '}';
+    }
 }

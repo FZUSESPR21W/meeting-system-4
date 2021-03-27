@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Component
 public class userService implements userMapper {
@@ -30,7 +32,18 @@ public class userService implements userMapper {
     }
 
     @Override
-    public int updateUser(user record) {
-        return userMapper.updateUser(record);
+    public int updateUser(String accountNum) {
+        System.out.println("123");
+        return userMapper.updateUser(accountNum);
+    }
+
+    @Override
+    public int deleteUserByAccountNum(String accoutNum) {
+        return userMapper.deleteUserByAccountNum(accoutNum);
+    }
+
+    @Override
+    public List<user> getAllUser() {
+        return userMapper.getAllUser();
     }
 }

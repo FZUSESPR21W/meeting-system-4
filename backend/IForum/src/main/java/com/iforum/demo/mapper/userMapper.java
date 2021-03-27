@@ -4,6 +4,8 @@ import com.iforum.demo.entity.user;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component
 public interface userMapper {
@@ -25,5 +27,9 @@ public interface userMapper {
 
     user getUserByAccountNum(String accountNum);
 
-    int updateUser(user record);
+    int updateUser(String accoutNum);
+
+    int deleteUserByAccountNum(String accoutNum);
+
+    List<user> getAllUser();
 }

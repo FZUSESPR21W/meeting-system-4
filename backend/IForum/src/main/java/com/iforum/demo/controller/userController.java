@@ -1,8 +1,10 @@
 package com.iforum.demo.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.iforum.demo.entity.smallforum;
 import com.iforum.demo.entity.user;
 import com.iforum.demo.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
@@ -135,18 +138,21 @@ public class userController {
             else {
                 user user1 = userService.getUserByAccountNum((String) object.get("accountNum"));
 
-
                 if (user1 == null){
                     result.put("state","Error");
                     result.put("RequestBody",JSONBody);
                     result.put("userInfo","user does not exist");
                     return result;
                 }else {
+                    userService.deleteUserByAccountNum((String)object.get("accountNum"));
                     if(object.containsKey("name")) user1.setName((String)object.get("name"));
                     if(object.containsKey("sex")) user1.setSex((String)object.get("sex"));
-                    if(object.containsKey("joinmeetingid")) user1.setJoinmeetingid((String)object.get("joinmeetingid"));
-                    if(object.containsKey("joinsmallforumid")) user1.setJoinsmallforumid((String)object.get("joinsmallforumid"));
-                    userService.updateUser(user1);
+                    if(object.containsKey("identity")) user1.setIdentity((String)object.get("identity"));
+                    if(object.containsKey("joinmeetingid")) {
+                        user1.setJoinmeetingid((String)object.get("joinmeetingid"));
+                    }
+                    if(object.containsKey("joinsmallforumid")) user1.setJoinsmallforumid((String)object.get("joinsmallforumid"));System.out.println(user1.toString());
+                    System.out.println("222333:"+userService.insert(user1));
 
                     result.put("state","success");
                     result.put("RequestBody",JSONBody);
@@ -154,6 +160,7 @@ public class userController {
                     result.put("accountNum",user1.getAccoutnum().toString());
                     result.put("password",user1.getPassword().toString());
                     result.put("name",user1.getName() == null ? "Null":user1.getName());
+                    result.put("identity",user1.getIdentity() == null ? "Null":user1.getIdentity());
                     result.put("sex",user1.getSex() == null ? "Null":user1.getSex());
                     result.put("identity",user1.getIdentity() == null ? "Null": user1.getIdentity());
                     result.put("joinmeetingid",user1.getJoinmeetingid() == null ? "Null" : user1.getJoinmeetingid());
@@ -177,6 +184,20 @@ public class userController {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/getAllUser" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public JSONArray getAllUser(){
+
+        List<user> list =userService.getAllUser();
+        JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(formatter.format(date) + " =======>  接口：/user/getAllUSer  请求体：无" + " 返回结果数：" + list.size());
+        System.out.println("########## 返回结果 ########## \n " + array);
+        System.out.println("##############################");
+        return array;
+
+    }
 
 
 }
