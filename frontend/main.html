@@ -5,30 +5,18 @@
     <meta charset="utf-8">
     <title>会议网站</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="//unpkg.com/vue/dist/vue.js"></script>
-    <script src="//unpkg.com/element-ui@2.15.1/lib/index.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    
 </head>
-<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-
 <body>
     <nav class="navbar navbar-default mz-navbar">
         <div class="container">
             <!-- 这个navbar-header是给内部两个元素包了一层通栏盒子，自身是清除浮动的作用,控制的是导航垂直布局 -->
             <div class="navbar-header">
-                <!-- 右边按钮 -->
-                <!-- navbar-toggle控制按钮只在移动端显示。data-toggle是js功能标志，js会找到这个元素注册点击事件 -->
-                <!-- <button type="button" class="navbar-toggle" data-toggle='collapse' data-target='.navbar-collapse'>
-                    <div class="icon-bar"></div>
-                    <div class="icon-bar"></div>
-                    <div class="icon-bar"></div>
-                </button> -->
                 <!-- 左边logo -->
                 <a class="navbar-brand " href="./main.html">会议网站(首页)</a>
             </div>
@@ -36,28 +24,9 @@
             <div class="navbar-collapse collapse">
                 <!-- navbar-nav控制移动端时li为block,nav控制li为float -->
                 <!-- nav类本质是让ul下的li左浮动水平排列，并设置ul和li的样式,也就是基本的导航样式 -->
-                <!-- <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;后台首页</a></li>
-            <li><a href="user_list.html"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户管理</a></li>
-            <li><a href="content.html"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;内容管理</a></li>
-            <li><a href="tag.html"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;标签管理</a></li>
-          </ul> -->
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- <li class="dropdown">
-                <a class="dropdown-toggle" type="button" href="javascript:void(0);" data-toggle="dropdown" >
-                        admin
-                        <span class="caret"></span>
-                      </a>
-                <ul class="dropdown-menu">
-                      <li><a href="../"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;前台首页</a></li>
-                      <li><a href="../"><span class="glyphicon glyphicon-user"></span>&nbsp;用户主页</a></li>
-                      <li><a href="../"><span class="glyphicon glyphicon-cog"></span>&nbsp;个人设置</a></li>
-                      <li><a href="../"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;账户中心</a></li>
-                      <li><a href="../"><span class="glyphicon glyphicon-heart"></span>&nbsp;我的收藏</a></li>
-                    </ul>
-              </li> -->
               <li><a href="./LoginInterface.html"><span class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;登录</a></li>
-              <li><a href="./LoginInterface.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;注册</a></li>
+              <li><a href="./RegisterInterface.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;注册</a></li>
                 </ul>
             </div>
         </div>
@@ -67,15 +36,20 @@
     <div id="app" style="margin:10px 200px">
         <template>
           <el-table
-            :data="tableData"
+          ref="filterTable" :data="tableData.slice((currPage-1)*limitCount,currPage*limitCount)"
             style="width: 100%"
-            max-height="500"
             >
             <el-table-column
               fixed
-              prop="meet"
+              prop="id"
+              label="ID"
+              width="50">
+            </el-table-column>
+            <el-table-column
+              fixed
+              prop="title"
               label="会议"
-              width="900">
+              width="850">
             </el-table-column>
             <el-table-column
               fixed="right"
@@ -83,7 +57,7 @@
               width="120">
               <template slot-scope="scope">
                 <el-button
-                  @click.native.prevent="deleteRow(scope.$index, tableData)"
+                  @click.native.prevent="transToNextHtml(scope.row)"
                   type="text"
                   size="small">
                   查询
@@ -92,24 +66,59 @@
             </el-table-column>
           </el-table>
         </template>
+        <el-pagination @current-change="currentChange" :current-page="currPage" layout="prev, pager, next" :total="tableData.length"
+            style="text-align: center" :page-size="limitCount">
+          </el-pagination>
         </div>
 
     <script>
         var Main = {
     methods: {
-      deleteRow(index, rows) {
-        rows.splice(index, 1);
-      }
+      transToNextHtml(val) {
+        //将数据传递给下一个html
+        window.location.href="forumlist.html?valus="+val.id;  
+        
+      },
+      currentChange(val) {
+                console.log(val);
+                this.currPage = val;
+            },
     },
     data() {
+      var limitCount = 8;
       return {
-        tableData: [{
-            meet: '2020年第25届欧洲睡眠研究学会大会(ESRS2020)',
-        }, {
-          meet: '2020年第25届国际美容整形外科学会全球大会(ISAPS2020)',
-        }]
+        tableData: [],
+        limitCount: limitCount,
+        currPage: 1,
       }
-    }
+    },
+    mounted(){
+            var that=this;
+            var list = {};
+                $.ajax({
+                    //请求方式
+                    type : "POST",
+                    //请求的媒体类型
+                    contentType: "application/json;charset=UTF-8",
+                    //请求地址
+                    url : "http://120.77.222.192:90//meeting/getAllMeeting",
+                    //数据，json字符串
+                    data : JSON.stringify(list),
+                    //请求成功
+                    success : function(result) {
+                        console.log(result);
+                        for(var i in result){
+                            that.tableData.push(result[i]);
+                            
+                        }console.log(that.tableData);
+                    },
+                    //请求失败，包含具体的错误信息
+                    error : function(e){
+                        console.log(e.status);
+                        console.log(e.responseText);
+                    }
+                });
+        }
   }
 var Ctor = Vue.extend(Main)
 new Ctor().$mount('#app')
