@@ -15,30 +15,30 @@
 <body>
     <nav class="navbar navbar-default mz-navbar">
         <div class="container">
-          <!-- 这个navbar-header是给内部两个元素包了一层通栏盒子，自身是清除浮动的作用,控制的是导航垂直布局 -->
-          <div class="navbar-header">
-              <!-- 右边按钮 -->
-              <!-- navbar-toggle控制按钮只在移动端显示。data-toggle是js功能标志，js会找到这个元素注册点击事件 -->
-              <!-- <button type="button" class="navbar-toggle" data-toggle='collapse' data-target='.navbar-collapse'>
+            <!-- 这个navbar-header是给内部两个元素包了一层通栏盒子，自身是清除浮动的作用,控制的是导航垂直布局 -->
+            <div class="navbar-header">
+                <!-- 右边按钮 -->
+                <!-- navbar-toggle控制按钮只在移动端显示。data-toggle是js功能标志，js会找到这个元素注册点击事件 -->
+                <!-- <button type="button" class="navbar-toggle" data-toggle='collapse' data-target='.navbar-collapse'>
                   <div class="icon-bar"></div>
                   <div class="icon-bar"></div>
                   <div class="icon-bar"></div>
               </button> -->
-              <!-- 左边logo -->
-              <a class="navbar-brand " href="./main.html">会议网站(首页)</a>
-          </div>
-          <!-- 需要折叠的内容,collaspe表示折叠默认隐藏，配合navbar-collapse宽频默认显示、移动端隐藏 -->
-          <div class="navbar-collapse collapse">
-              <!-- navbar-nav控制移动端时li为block,nav控制li为float -->
-              <!-- nav类本质是让ul下的li左浮动水平排列，并设置ul和li的样式,也就是基本的导航样式 -->
-              <!-- <ul class="nav navbar-nav">
+                <!-- 左边logo -->
+                <a class="navbar-brand " href="./main.html">会议网站(首页)</a>
+            </div>
+            <!-- 需要折叠的内容,collaspe表示折叠默认隐藏，配合navbar-collapse宽频默认显示、移动端隐藏 -->
+            <div class="navbar-collapse collapse">
+                <!-- navbar-nav控制移动端时li为block,nav控制li为float -->
+                <!-- nav类本质是让ul下的li左浮动水平排列，并设置ul和li的样式,也就是基本的导航样式 -->
+                <!-- <ul class="nav navbar-nav">
           <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;后台首页</a></li>
           <li><a href="user_list.html"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户管理</a></li>
           <li><a href="content.html"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;内容管理</a></li>
           <li><a href="tag.html"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;标签管理</a></li>
         </ul> -->
-              <ul class="nav navbar-nav navbar-right">
-                  <!-- <li class="dropdown">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- <li class="dropdown">
               <a class="dropdown-toggle" type="button" href="javascript:void(0);" data-toggle="dropdown" >
                       admin
                       <span class="caret"></span>
@@ -51,49 +51,51 @@
                     <li><a href="../"><span class="glyphicon glyphicon-heart"></span>&nbsp;我的收藏</a></li>
                   </ul>
             </li> -->
-                  <li><a href="./LoginInterface.html"><span class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;登录</a></li>
-                  <li><a href="./LoginInterface.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;注册</a></li>
-              </ul>
-          </div>
-      </div>
-      </nav>
+                    <li><a href="./LoginInterface.html"><span
+                                class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;登录</a></li>
+                    <li><a href="./LoginInterface.html"><span
+                                class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;注册</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div id="app" style="margin: 0 10%;">
         <template>
             <el-row>
-                <el-col :span="16" ><p style="size: 18px;"><i class="el-icon-message-solid" >消息列表</i></p></el-col>
-                <el-col :span="4" style="text-align: right;"><el-button @click="resetDateFilter">清除日期过滤器</el-button></el-col>
-                <el-col :span="4" style="text-align: right;"><el-button @click="clearFilter">清除所有过滤器</el-button></el-col>
+                <el-col :span="16">
+                    <p style="size: 18px;"><i class="el-icon-message-solid">消息列表</i></p>
+                </el-col>
+                <el-col :span="4" style="text-align: right;">
+                    <el-button @click="resetDateFilter">清除日期过滤器</el-button>
+                </el-col>
+                <el-col :span="4" style="text-align: right;">
+                    <el-button @click="clearFilter">清除所有过滤器</el-button>
+                </el-col>
             </el-row>
-            
-            
-            <el-table ref="filterTable" :data="tableData.slice((currPage-1)*limitCount,currPage*limitCount)" style="width: 100%" :default-sort = "{prop: 'date', order: 'descending'}">
+
+
+            <el-table ref="filterTable" :data="tableData.slice((currPage-1)*limitCount,currPage*limitCount)"
+                style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
                 <el-table-column prop="context" label="内容" :formatter="formatter">
                 </el-table-column>
-                <el-table-column prop="name" label="发布人" width="180">
+                <el-table-column prop="id" label="发布人" width="180">
                 </el-table-column>
-                
-                <el-table-column prop="date" label="日期"  width="180" column-key="date"
-                    :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
-                    :filter-method="filterHandler">
+
+                <el-table-column prop="time" label="日期" width="180" 
+                    >
                 </el-table-column>
-                <el-table-column prop="meeting" label="会议" width="100"
-                    :filters="[{ text: '会议1', value: '会议1' }, { text: '会议2', value: '会议2' }]" :filter-method="filtermeeting"
-                    filter-placement="bottom-end">
+                <el-table-column prop="belongto" label="会议" width="100"
+                    :filters="[{ text: '1', value: '1' }, { text: '2', value: '2' },{text: '4', value: '2'}]"
+                    :filter-method="filtermeeting" filter-placement="bottom-end">
                     <template slot-scope="scope">
-                        <el-tag :type="scope.row.meeting === '会议1' ? 'primary' : 'success'" disable-transitions>
+                        <el-tag :type="scope.row.belongto === '1' ? 'primary' : 'success'" disable-transitions>
                             {{scope.row.meeting}}</el-tag>
                     </template>
                 </el-table-column>
             </el-table>
         </template>
-        <el-pagination
-            @current-change="currentChange"
-            :current-page= "currPage"
-            layout = "prev, pager, next"
-            :total= "4"
-            style="text-align: center"
-            :page-size = "limitCount"
-            > 
+        <el-pagination @current-change="currentChange" :current-page="currPage" layout="prev, pager, next" :total="tableData.length"
+            style="text-align: center" :page-size="limitCount">
         </el-pagination>
 
     </div>
@@ -104,42 +106,20 @@
         el: '#app',
 
         data() {
-            var data = [{
-                    date: '2016-05-01',
-                    name: '胡绪豪',
-                    context: '你好，*你一下',
-                   meeting : '会议1'
-                }, {
-                    date: '2016-05-03',
-                    name: '庄**',
-                    context: '你被退学了',
-                    meeting : '会议2'
-                }, {
-                    date: '2016-05-02',
-                    name: '林子坤',
-                    context: '不错',
-                    meeting : '会议1'
-                }, {
-                    date: '2016-05-04',
-                    name: 'pc',
-                    context: '',
-                    meeting : '会议2'
-                }];
             var limitCount = 8;
-            var pageCount =data.count/limitCount;
             return {
-                tableData: data,
-                limitCount:limitCount,
-                currPage : 1,
-                pageCount: pageCount,
+                tableData: [],
+                limitCount: limitCount,
+                currPage: 1,
             };
         },
         watch: {
 
         },
+        
         methods: {
             resetDateFilter() {
-                this.$refs.filterTable.clearFilter('date');
+                this.$refs.filterTable.clearFilter('time');
             },
             clearFilter() {
                 this.$refs.filterTable.clearFilter();
@@ -148,17 +128,45 @@
                 return row.context;
             },
             filtermeeting(value, row) {
-                return row.meeting === value;
+                return row.belongto === value;
             },
             filterHandler(value, row, column) {
                 const property = column['property'];
                 return row[property] === value;
             },
-            currentChange(val){
+            currentChange(val) {
                 console.log(val);
                 this.currPage = val;
-            }
+            },
+            
         },
+        mounted(){
+            var that=this;
+            var list = {};
+                $.ajax({
+                    //请求方式
+                    type : "POST",
+                    //请求的媒体类型
+                    contentType: "application/json;charset=UTF-8",
+                    //请求地址
+                    url : "http://localhost:8080/message/getAllMessage",
+                    //数据，json字符串
+                    data : JSON.stringify(list),
+                    //请求成功
+                    success : function(result) {
+                        console.log(result);
+                        for(var i in result){
+                            that.tableData.push(result[i]);
+                            
+                        }console.log(that.tableData);
+                    },
+                    //请求失败，包含具体的错误信息
+                    error : function(e){
+                        console.log(e.status);
+                        console.log(e.responseText);
+                    }
+                });
+        }
 
     })
 
