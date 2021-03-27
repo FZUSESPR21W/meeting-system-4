@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Component
 public class smallforumService implements smallforumMapper {
+
     @Override
     public int deleteByPrimaryKey(Integer id) {
         return 0;

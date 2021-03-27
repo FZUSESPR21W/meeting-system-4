@@ -18,21 +18,20 @@ import java.util.List;
 @RestController
 @EnableAutoConfiguration
 @CrossOrigin
-@RequestMapping(value = "/meeting", produces = "application/json; charset=utf-8")
+@RequestMapping(value = "meeting", produces = "application/json; charset=utf-8")
 public class meetingController {
 
     @Autowired
     private meetingService meetingService;
 
     @ResponseBody
-    @RequestMapping(value = "/getAllMeeting" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "getAllMeeting" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public JSONArray getAllMeeting(@RequestBody String JSONBody){
         JSONObject object = JSONObject.parseObject(JSONBody);
         List<meeting> meetingList = meetingService.getAllMeeting();
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(meetingList));
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
-
         System.out.println(formatter.format(date) + " =======>  接口：getAllMeeting  请求体：" + JSONBody + " 返回结果数：" + meetingList.size() );
         System.out.println("########## 返回结果 ########## \n " + array);
         System.out.println("##############################");
