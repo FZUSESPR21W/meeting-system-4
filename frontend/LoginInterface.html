@@ -52,7 +52,7 @@
               </ul>
         </li> -->
               <li><a href="./LoginInterface.html"><span class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;登录</a></li>
-              <li><a href="./RegisterInterface.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;注册</a></li>
+              <li><a href="./LoginInterface.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;注册</a></li>
           </ul>
       </div>
   </div>
@@ -118,7 +118,41 @@
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              alert('submit!');
+              var account=this.loginForm.accountNum;
+              var password=this.loginForm.password;
+              var list = {
+                "accountNum": account.toString(),
+                "password": password
+              };
+              $.ajax({
+                type: "POST",
+                contentType: "application/json;chatset=UTF-8",
+                url: "http://120.77.222.192:90/user/getUserByAccountNum",
+                data: JSON.stringify(list),
+                success: function (result) {
+                  console.log(1);
+                  console.log(result);
+                  if(result["state"]=="success"){
+                    console.log("success!");
+                    if(result["identity"]=="1"){
+                      console.log("普通用户");
+                    }else if(result["identity"]=="2"){
+                      console.log("秘书");
+                    }else if(result["identity"]=="3"){
+                      console.log("会议主席");
+                    }else if(result["identity"]=="4"){
+                      console.log("论坛主席");
+                    }
+                  }else if(result["state"]=="Error"){
+                    console.log("Error!");
+                  }
+                  // window.location.href = "SelectForums.html?account=" + account + "&password=" + password;
+
+                },
+                error: function (error) {
+                  console.log(error);
+                }
+              });
             } else {
               console.log('error submit!!');
               return false;
