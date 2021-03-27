@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    name: test
+    url: jdbc:mysql://rm-bp1up4020301lod36qo.mysql.rds.aliyuncs.com:3306/iforum?characterEncoding=UTF-8
+
+    username: cmydb
+    password: Fjcu3344
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.iforum.demo.entity
