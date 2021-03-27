@@ -111,4 +111,9 @@
       belongto = #{belongto,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getAllSmallForum" resultType="com.iforum.demo.entity.smallforum">
+
+    select * from smallforum
+  </select>
 </mapper>
