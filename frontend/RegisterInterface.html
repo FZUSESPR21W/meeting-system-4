@@ -9,6 +9,7 @@
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
   <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
   <title>会议网站</title>
 </head>
 
@@ -52,7 +53,7 @@
               </ul>
         </li> -->
         <li><a href="./LoginInterface.html"><span class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;登录</a></li>
-        <li><a href="./LoginInterface.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;注册</a></li>
+        <li><a href="./RegisterInterface.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;注册</a></li>
           </ul>
       </div>
   </div>
@@ -68,7 +69,6 @@
       <el-form-item label="确认密码" prop="checkPassword">
         <el-input type="password" v-model="registerForm.checkPassword" autocomplete="off"></el-input>
       </el-form-item>
-
       <el-form-item>
         <el-button type="primary" @click="submitForm('registerForm')">注册</el-button>
         <el-button @click="resetForm('registerForm')">重置</el-button>
@@ -158,6 +158,7 @@
                         }
                     });
               
+
             }
               
           });

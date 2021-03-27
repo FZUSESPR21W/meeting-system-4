@@ -1,201 +1,325 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-  <link rel="stylesheet" href="../public/static/index/css/a.css" type="text/css">
-  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
-  <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
-  <title>论文管理系统</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="utf-8">
+<title>会议系统</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
+
+
 </head>
-<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-  <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-<body >
-	<nav class="navbar navbar-default mz-navbar">
-        <div class="container">
-            <!-- 这个navbar-header是给内部两个元素包了一层通栏盒子，自身是清除浮动的作用,控制的是导航垂直布局 -->
-            <div class="navbar-header">
-                <!-- 右边按钮 -->
-                <!-- navbar-toggle控制按钮只在移动端显示。data-toggle是js功能标志，js会找到这个元素注册点击事件 -->
-                <button type="button" class="navbar-toggle" data-toggle='collapse' data-target='.navbar-collapse'>
-                    <div class="icon-bar"></div>
-                    <div class="icon-bar"></div>
-                    <div class="icon-bar"></div>
-                </button>
-                <!-- 左边logo -->
-                <a class="navbar-brand " href="index.html">Maizi Admin</a>
-            </div>
-            <!-- 需要折叠的内容,collaspe表示折叠默认隐藏，配合navbar-collapse宽频默认显示、移动端隐藏 -->
-            <div class="navbar-collapse collapse">
-                <!-- navbar-nav控制移动端时li为block,nav控制li为float -->
-                <!-- nav类本质是让ul下的li左浮动水平排列，并设置ul和li的样式,也就是基本的导航样式 -->
-                <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;后台首页</a></li>
-            <li><a href="user_list.html"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户管理</a></li>
-            <li><a href="content.html"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;内容管理</a></li>
-            <li><a href="tag.html"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;标签管理</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" type="button" href="javascript:void(0);" data-toggle="dropdown" >
-                        分论坛主席
-                        <span class="caret"></span>
-                      </a>
-                <ul class="dropdown-menu">
-                      <li><a href="../"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;前台首页</a></li>
-                      <li><a href="../"><span class="glyphicon glyphicon-user"></span>&nbsp;用户主页</a></li>
-                      <li><a href="../"><span class="glyphicon glyphicon-cog"></span>&nbsp;个人设置</a></li>
-                      <li><a href="../"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;账户中心</a></li>
-                      <li><a href="../"><span class="glyphicon glyphicon-heart"></span>&nbsp;我的收藏</a></li>
-                    </ul>
-              </li>
-            <li><a href="javascript:void(0);"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
-          </ul>
-            </div>
+<body>
+
+<nav class="navbar navbar-default mz-navbar">
+	<div class="container">
+		
+		<div class="navbar-header">
+	
+			<button type="button" class="navbar-toggle" data-toggle='collapse' data-target='.navbar-collapse'>
+				<div class="icon-bar"></div>
+				<div class="icon-bar"></div>
+				<div class="icon-bar"></div>
+			</button>
+			
+			<a class="navbar-brand " href="./">Maizi Admin</a>
+		</div>
+	
+		<div class="navbar-collapse collapse">
+
+			<ul class="nav navbar-nav">
+        <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;后台首页</a></li>
+        <li><a href="user_list.html"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户管理</a></li>
+        <li><a href="content.html"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;内容管理</a></li>
+        <li><a href="tag.html"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;标签管理</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        	<a class="dropdown-toggle" type="button" href="javascript:void(0);" data-toggle="dropdown" >
+				    admin
+				    <span class="caret"></span>
+				  </a>
+        	<ul class="dropdown-menu">
+			      <li><a href="../"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;前台首页</a></li>
+			      <li><a href="../"><span class="glyphicon glyphicon-user"></span>&nbsp;用户主页</a></li>
+			      <li><a href="../"><span class="glyphicon glyphicon-cog"></span>&nbsp;个人设置</a></li>
+			      <li><a href="../"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;账户中心</a></li>
+			      <li><a href="../"><span class="glyphicon glyphicon-heart"></span>&nbsp;我的收藏</a></li>
+			    </ul>
+      	</li>
+        <li><a href="javascript:void(0);"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
+      </ul>
+		</div>
+	</div>
+</nav>
+<div class="container">
+
+  
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    发布通知
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
         </div>
-    </nav>
-    
-
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="	position: absolute;top: 60px;left: 200px;">
-  发布通知
-</button>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">发布标题</h4>
-      </div>
-      <div class="modal-body">
-
-        <div id="app">
-          <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
-
-              <el-form-item label="标题" prop="user">
-                  <el-input v-model.number="ruleForm.user"></el-input>
+        <div class="modal-body">
+          
+  
+  
+          <div id="app">
+            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
+  
+                
+  
+                <el-form-item label="通知内容" prop="pass">
+                    <el-input type="textarea"  v-model="ruleForm.pass" rows="5" id="content" ></el-input>
+                </el-form-item>
+  
+                <el-form-item label="所属会议" prop="user">
+                  <el-input v-model.number="ruleForm.user" id="belongto"></el-input>
               </el-form-item>
-
-              <el-form-item label="通知内容" prop="pass">
-                  <el-input type="textarea"  v-model="ruleForm.pass" rows="5"></el-input>
-              </el-form-item>
-
-              <el-form-item>
-                  <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                  <el-button @click="resetForm('ruleForm')">重置</el-button>
-              </el-form-item>
-
-          </el-form>
-      </div>
-
-      </div>
-      <div class="modal-footer">
-        
+  
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm')" id="submit">提交</el-button>
+                    <el-button @click="resetForm('ruleForm')">重置</el-button>
+                </el-form-item>
+                
+            </el-form>
+        </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-<div style="font-size: large;font-weight: bold;text-align: center;">会议热度显示表</div>
-      <div id="main" style="width:800px;height:400px;margin:0 auto;"></div>
-      <div id="smalltag" style="font-size: large;font-weight: bold;text-align: center;"></div>
-      <div id="small" style="width:800px;height:400px;margin:0 auto;"></div>
-
-    <script type="text/javascript">
-        var mainChart = echarts.init(document.getElementById('main'));
-        var smallChart = echarts.init(document.getElementById('small'));
-        var optionMain = {
-            xAxis: {
-                data: ["会议一","会议三","会意4","会议5","会议6","会议二","会议三十七"]
-            },
-            yAxis: {},
-            series: [{
-                name: '人数',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20,7]
-            }]
-        };
-        mainChart.setOption(optionMain);
-        mainChart.on('click', function (params) {
-            document.getElementById("smalltag").innerHTML = params.name+"论坛分布显示表";
-            var optionSmall = {
-            xAxis: {
-                data: ["论坛一","论坛三","论坛4","论坛5"]
-            },
-            yAxis: {},
-            series: [{
-                name: '人数',
-                type: 'bar',
-                data: [5, 20, 36, 10]
-            }]
-        };
-            smallChart.setOption(optionSmall);
-        });
-        
-    </script>
-
-<script>
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
 
-  new Vue({
-      el: '#app',
+  <div style="font-size: large;font-weight: bold;text-align: center;">会议热度显示表</div>
+  <div id="main" style="width:800px;height:400px;margin:0 auto;"></div>
+  <div id="smalltag" style="font-size: large;font-weight: bold;text-align: center;"></div>
+  <div id="small" style="width:800px;height:400px;margin:0 auto;"></div>
 
-      data() {
-          var checkuser = (rule, value, callback) => {
-              if (!value) {
-                  return callback(new Error('标题不得为空'));
-              }
-              
-          };
-          var validatePass = (rule, value, callback) => {
-              if (value === '') {
-                  callback(new Error('请输入通知内容'));
-              } 
-          };
-          
-          return {
-              ruleForm: {
-                  pass: '',
-                  user: ''
-              },
-              rules: {
-                  pass: [
-                      { validator: validatePass, trigger: 'blur' }
-                  ],
-                  
-                  user: [
-                      { validator: checkuser, trigger: 'blur' }
-                  ]
-              }
 
-          };
-      },
-      watch: {
 
-      },
-      methods: {
-          submitForm(formName) {
-              this.$refs[formName].validate((valid) => {
-                  if (valid) {
-                      alert('submit!');
-                  } else {
-                      console.log('error submit!!');
-                      return false;
-                  }
-              });
-          },
-          resetForm(formName) {
-              this.$refs[formName].resetFields();
-          }
-      },
-
-  })
-
+  <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+<script type="text/javascript">
+    var mainChart = echarts.init(document.getElementById('main'));
+    var smallChart = echarts.init(document.getElementById('small'));
+    var optionMain = {
+        xAxis: {
+            data: ["会议一","会议三","会意4","会议5","会议6","会议二","会议三十七"]
+        },
+        yAxis: {},
+        series: [{
+            name: '人数',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20,7]
+        }]
+    };
+    mainChart.setOption(optionMain);
+    mainChart.on('click', function (params) {
+        document.getElementById("smalltag").innerHTML = params.name+"论坛分布显示表";
+        var optionSmall = {
+        xAxis: {
+            data: ["论坛一","论坛三","论坛4","论坛5"]
+        },
+        yAxis: {},
+        series: [{
+            name: '人数',
+            type: 'bar',
+            data: [5, 20, 36, 10]
+        }]
+    };
+        smallChart.setOption(optionSmall);
+    });
+    
 </script>
+
+
+
+
+
+
+
+
+
+    <script>
+      
+
+      new Vue({
+          el: '#app',
+    
+          data() {
+              var checkuser = (rule, value, callback) => {
+                  if (!value) {
+                      return callback(new Error('所属会议不得为空'));
+                  }
+                  
+              };
+              var validatePass = (rule, value, callback) => {
+                  if (value === '') {
+                      callback(new Error('请输入通知内容'));
+                  } 
+              };
+              
+              return {
+                  ruleForm: {
+                      pass: '',
+                      user: ''
+                  },
+                  rules: {
+                      pass: [
+                          { validator: validatePass, trigger: 'blur' }
+                      ],
+                      
+                      user: [
+                          { validator: checkuser, trigger: 'blur' }
+                      ]
+                  }
+    
+              };
+          },
+          watch: {
+    
+          },
+          methods: {
+              submitForm(formName) {
+                  this.$refs[formName].validate((valid) => {
+                      if (valid) {
+                          alert('submit!');
+                      } else {
+                          console.log('error submit!!');
+                          return false;
+                      }
+                  });
+              },
+              resetForm(formName) {
+                  this.$refs[formName].resetFields();
+              }
+          },
+    
+      })
+      
+  </script>
+    <script>
+ 
+ var btn = document.getElementById("submit");
+    var word = document.getElementById("bbb");
+    var con=document.getElementById("content");
+    var  be=document.getElementById("belongto");
+    var xmlhttp;
+    var url = "http://120.77.222.192:90/message/setMessage";
+    btn.onclick= function(){
+        //1.
+
+        if(window.XMLHttpRequest){
+            alert("11");
+            xmlhttp = new XMLHttpRequest();
+        }else{
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+
+        }
+        //2.
+        xmlhttp.onreadystatechange = function() {
+            //
+            //
+            if(xmlhttp.readyState == 4){
+                //
+
+                if(xmlhttp.status == 200) {
+                    //
+                    var str = xmlhttp.responseText;
+                    //
+                    alert(str);
+                    var json = JSON.parse(str);
+
+                    word.innerText = json;
+
+                }
+            }
+        }
+        //3.
+        xmlhttp.open("POST",url,true);
+        xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*")
+        //4.
+        xmlhttp.send("{\"time\":\"2223-cmy\",\"context\":\""+$("#content").val()+"\",\"belongto\":"+$("#belongto").val()+"}");
+    }
+
+
+
+
+    </script>
 </body>
+</html>
