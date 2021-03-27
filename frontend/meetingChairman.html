@@ -21,7 +21,10 @@
     }
      var sta;
      var acc;
-
+     document.getElementById("yyy").innerHTML=theRequest["accountNum"]+"(会议主席)";
+    
+    
+    
     </script>
 </head>
 <body>
@@ -36,109 +39,81 @@
                   <div class="icon-bar"></div>
                   <div class="icon-bar"></div>
               </button> -->
-              <!-- 左边logo -->
-              <a class="navbar-brand " href="./">会议网站(会议主席页面)</a>
-          </div>
-          <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-right">
-                  <li><span class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;主席好！</li>
-                  <li><a href="main.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;退出</a></li>
-              </ul>
-          </div>
-      </div>
-      </nav>
+                <!-- 左边logo -->
+                <a class="navbar-brand " href="./main.html">会议网站(首页)</a>
+            </div>
+            <!-- 需要折叠的内容,collaspe表示折叠默认隐藏，配合navbar-collapse宽频默认显示、移动端隐藏 -->
+            <div class="navbar-collapse collapse">
+                <!-- navbar-nav控制移动端时li为block,nav控制li为float -->
+                <!-- nav类本质是让ul下的li左浮动水平排列，并设置ul和li的样式,也就是基本的导航样式 -->
+                <!-- <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;后台首页</a></li>
+          <li><a href="user_list.html"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户管理</a></li>
+          <li><a href="content.html"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;内容管理</a></li>
+          <li><a href="tag.html"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;标签管理</a></li>
+        </ul> -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- <li class="dropdown">
+              <a class="dropdown-toggle" type="button" href="javascript:void(0);" data-toggle="dropdown" >
+                      admin
+                      <span class="caret"></span>
+                    </a>
+              <ul class="dropdown-menu">
+                    <li><a href="../"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;前台首页</a></li>
+                    <li><a href="../"><span class="glyphicon glyphicon-user"></span>&nbsp;用户主页</a></li>
+                    <li><a href="../"><span class="glyphicon glyphicon-cog"></span>&nbsp;个人设置</a></li>
+                    <li><a href="../"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;账户中心</a></li>
+                    <li><a href="../"><span class="glyphicon glyphicon-heart"></span>&nbsp;我的收藏</a></li>
+                  </ul>
+            </li> -->
+                    <li><a id="yyy"><span
+                                class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;我</a></li>
+                    <li><a href="main.html"><span
+                                class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
       <div id="main" style="width:800px;height:600px;float:left"></div>
       <div id="small" style="width:300px;height:200px;float:left;margin-left:30px;"></div>
     <script type="text/javascript">
-        var fenhuiyi=[];
-        var list = {"id": 2 };
-            $.ajax({
-                //请求方式
-                type : 'post',
-                //请求的媒体类型
-                contentType: "application/json;charset=UTF-8",
-                //请求地址
-                url : "http://120.77.222.192:90/sForum/getlSForumByChairmanid",
-                //数据，json字符串
-                data : JSON.stringify(list),
-                //请求成功
-                success : function(result) {
-                    $.each(result.list,function(index,item){
-                        fenhuiyi.push({
-                            belongname:item.meetingTitle,
-                            fhyname:item.sForumTitle,
-                            sum:item.sForumSize
-                        })
-
-                    });
-                },
-                error : function (erroMsg){
-                    alert("图表请求数据失败!");
-                }
-            });
-            var meetName=[];
-            var meetpSum=[];
-            $.ajax({
-                //请求方式
-                type : 'post',
-                //请求的媒体类型
-                contentType: "application/json;charset=UTF-8",
-                //请求地址
-                url : "http://120.77.222.192:90/meeting/getMeetingByChairmanid",
-                //数据，json字符串
-                data : JSON.stringify(list),
-                //请求成功
-                success : function(result) {
-                    $.each(result.list,function(index,item){
-                        meetName.push(item.meetingTitle);
-                        meetpSum.push(item.num);
-                    });
-                },
-                error : function (erroMsg){
-                    alert("图表请求数据失败!");
-                }
-            });
-        
         var mainChart = echarts.init(document.getElementById('main'));
         var smallChart = echarts.init(document.getElementById('small'));
         var optionMain = {
             title: {
-                text: '会议人数情况查看表（点击柱状图查看详情）'
+                text: '会议人数情况查看表'
             },
             tooltip: {},
             legend: {
-                data:meetName
+                data:['人数']
             },
             xAxis: {
-                data: meetName
+                data: ["会议一","会议三","会意4","会议5","会议6","会议二","会议三十七"]
             },
-            yAxis: {},
+            yAxis: {
+                
+            },
             series: [{
                 name: '人数',
                 type: 'bar',
-                data: meetpSum
+                data: [5, 20, 36, 10, 10, 20,7]
             }]
         };
         mainChart.setOption(optionMain);
         mainChart.on('click', function (params) {
-            var fhy=[]
-            for(var i in fenhuiyi){
-                if(fenhuiyi[i].belongname==param){
-                    fhy.push({
-                        value:fenhuiyi[i].sForumSize,
-                        name:fenhuiyi[i].sForumTitle
-                    })
-                }
-            }
             var optionSmall = {
                 tooltip: {},
                 legend: {
-                  data:['人数']
+                data:['人数']
                 },
                 series: [{
                     name: '人数',
                     type: 'pie',
-                    data: fhy
+                    data: [{value:235, name:'论坛一'},
+                        {value:274, name:'论坛2'},
+                        {value:310, name:'论坛三'},
+                        {value:335, name:'论坛四'},
+                        {value:400, name:'论坛五'}]
                 }]
             };
             smallChart.setOption(optionSmall);
