@@ -40,15 +40,15 @@
                 </el-table-column>
                 <el-table-column prop="smallforumname" label="分论坛标题" style="width:70%">
                 </el-table-column>
-                <el-table-column prop="smallchairmanid" label="主席" show-overflow-tooltip style = "width:10%">
+                <el-table-column prop="smallchairmanid" label="主席" show-overflow-tooltip style="width:10%">
                 </el-table-column>
                 <!-- <el-table-column label="召开日期" style = "width:20%">
                     <template slot-scope="scope">{{ scope.row.date }}</template>
                 </el-table-column> -->
             </el-table>
-            <div style="margin-top: 20px" align = "center" >
+            <div style="margin-top: 20px" align="center">
                 <el-button @click="Complete()" type="primary">完成</el-button>
-              </div>
+            </div>
         </template>
     </div>
     <script>
@@ -72,28 +72,59 @@
                 handleSelectionChange(val) {
                     this.multipleSelection = val;
                 },
-                Complete(){
-                        for(var i in this.multipleSelection){
-                            console.log(this.tableData[i].id+"id");
+                Complete() {
+                    var url = location.search;
+                    var request = new Object();
+                    var account="";
+                    var password="";
+                    if(url.indexOf("?")!=-1){
+                        var str = url.substr(1);
+                        strs = str.split("&");
+                        account = strs[0].split("=")[1];
+                        password = strs[1].split("=")[1];
+                        console.log(account+password);
+                    }
+                    var list = {
+                        "accountNum":account,
+                        "password":password,
+                        "name":"6",
+                        "sex":"6",
+                        "joinsmallforumid":"",
+                        "joinmeetingid":""
+                    };
+                    for (var i in this.multipleSelection) {
+                        list["joinsmallforumid"] += this.tableData[i].id+",";
+                        console.log(list["joinsmallforumid"]);
+                    }
+                    console.log(list["joinsmallforumid"]);
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json;chatset=UTF-8",
+                        url: "http://120.77.222.192:90//user/updateUser",
+                        data: JSON.stringify(list),
+                        success: function (result) {
+                            console.log(result);
+                        },
+                        error: function (error) {
+                            console.log(error);
                         }
-                        
-                    
+                    });
                 }
             },
-            mounted(){
+            mounted() {
                 var that = this;
                 var list = {};
                 $.ajax({
-                    type:"POST",
-                    contentType:"application/json;chatset=UTF-8",
-                    url:"http://localhost:8080/sForum/getAllSForum",
-                    data:JSON.stringify(list),
-                    success:function(result){
-                        for(var i in result){
+                    type: "POST",
+                    contentType: "application/json;chatset=UTF-8",
+                    url: "http://120.77.222.192:90/sForum/getAllSForum",
+                    data: JSON.stringify(list),
+                    success: function (result) {
+                        for (var i in result) {
                             that.tableData.push(result[i]);
                         }
                     },
-                    error:function(error){
+                    error: function (error) {
                         console.log(error);
                     }
                 });
