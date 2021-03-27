@@ -119,6 +119,9 @@
                     contentType: "application/json;chatset=UTF-8",
                     url: "http://120.77.222.192:90/sForum/getAllSForum",
                     data: JSON.stringify(list),
+                    beforeSend: function(request){
+                        request.setRequestHeader("Access-Control-Allow-Origin","*");
+                    },
                     success: function (result) {
                         for (var i in result) {
                             that.tableData.push(result[i]);
