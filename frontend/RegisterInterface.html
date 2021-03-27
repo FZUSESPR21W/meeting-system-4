@@ -9,7 +9,6 @@
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
   <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
   <title>会议网站</title>
 </head>
 
@@ -26,7 +25,7 @@
               <div class="icon-bar"></div>
           </button> -->
           <!-- 左边logo -->
-          <a class="navbar-brand " href="./main.html">会议网站(首页)</a>
+          <a class="navbar-brand " href="./main.html">会议网站(注册)</a>
       </div>
       <!-- 需要折叠的内容,collaspe表示折叠默认隐藏，配合navbar-collapse宽频默认显示、移动端隐藏 -->
       <div class="navbar-collapse collapse">
@@ -69,6 +68,7 @@
       <el-form-item label="确认密码" prop="checkPassword">
         <el-input type="password" v-model="registerForm.checkPassword" autocomplete="off"></el-input>
       </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="submitForm('registerForm')">注册</el-button>
         <el-button @click="resetForm('registerForm')">重置</el-button>
@@ -132,35 +132,12 @@
       methods: {
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
-            
-            if(valid){
-              var account = this.registerForm.accountNum;
-              var password = this.registerForm.password;
-              var list = {
-                "accountNum":account,
-                "password":password
-              };
-              
-              $.ajax({
-                        type: "POST",
-                        contentType: "application/json;chatset=UTF-8",
-                        url: "http://120.77.222.192:90/api/user/register",
-                        data: JSON.stringify(list),
-                        dataType:"json",
-                        
-                        success: function (result) {
-                          
-                          window.location.href = "SelectForums.html?account="+account+"&password="+password;
-                          
-                        },
-                        error: function (error) {
-                            console.log(error);
-                        }
-                    });
-              
-
+            if (valid) {
+              alert('submit!');
+            } else {
+              console.log('error submit!!');
+              return false;
             }
-              
           });
         },
         resetForm(formName) {
