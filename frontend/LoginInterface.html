@@ -135,12 +135,17 @@
                   if(result["state"]=="success"){
                     console.log("success!");
                     if(result["identity"]=="1"){
+                      
+                      window.location.href = "./普通用户message.html?accountNum="+result["accountNum"]+'&identity='+result["identity"];  
                       console.log("普通用户");
                     }else if(result["identity"]=="2"){
+                      window.location.href = "./secretary.html?accountNum="+result["accountNum"]+'&identity='+result["identity"];
                       console.log("秘书");
                     }else if(result["identity"]=="3"){
+                      window.location.href = "./meetingChairman.html?accountNum="+result["accountNum"]+'&identity='+result["identity"];
                       console.log("会议主席");
                     }else if(result["identity"]=="4"){
+                      window.location.href = "./ChairmanOfSubForum.html?accountNum="+result["accountNum"]+'&identity='+result["identity"];
                       console.log("论坛主席");
                     }
                   }else if(result["state"]=="Error"){
