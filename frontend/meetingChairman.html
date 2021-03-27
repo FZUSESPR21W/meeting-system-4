@@ -8,30 +8,72 @@
   <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+  <script>
+    var url = location.search; //获取url中"?"符后的字串 ('?modFlag=business&role=1')  
+    var theRequest = new Object();  
+    if ( url.indexOf( "?" ) != -1 ) {  
+      var str = url.substr( 1 ); //substr()方法返回从参数值开始到结束的字符串；  
+      var strs = str.split( "&" );  
+      for ( var i = 0; i < strs.length; i++ ) {  
+        theRequest[ strs[ i ].split( "=" )[ 0 ] ] = ( strs[ i ].split( "=" )[ 1 ] );  
+      }
+      //console.log( theRequest["generalmeetId"] ); //此时的theRequest就是我们需要的参数；  
+    }
+     var sta;
+     var acc;
+     document.getElementById("yyy").innerHTML=theRequest["accountNum"]+"(会议主席)";
+    
+    
+    
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-default mz-navbar">
         <div class="container">
-          <!-- 这个navbar-header是给内部两个元素包了一层通栏盒子，自身是清除浮动的作用,控制的是导航垂直布局 -->
-          <div class="navbar-header">
-              <!-- 右边按钮 -->
-              <!-- navbar-toggle控制按钮只在移动端显示。data-toggle是js功能标志，js会找到这个元素注册点击事件 -->
-              <!-- <button type="button" class="navbar-toggle" data-toggle='collapse' data-target='.navbar-collapse'>
+            <!-- 这个navbar-header是给内部两个元素包了一层通栏盒子，自身是清除浮动的作用,控制的是导航垂直布局 -->
+            <div class="navbar-header">
+                <!-- 右边按钮 -->
+                <!-- navbar-toggle控制按钮只在移动端显示。data-toggle是js功能标志，js会找到这个元素注册点击事件 -->
+                <!-- <button type="button" class="navbar-toggle" data-toggle='collapse' data-target='.navbar-collapse'>
                   <div class="icon-bar"></div>
                   <div class="icon-bar"></div>
                   <div class="icon-bar"></div>
               </button> -->
-              <!-- 左边logo -->
-              <a class="navbar-brand " href="./">会议网站(会议主席页面)</a>
-          </div>
-          <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-right">
-                  <li><a href=""><span class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;用户名</a></li>
-                  <li><a href="main.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;退出</a></li>
-              </ul>
-          </div>
-      </div>
-      </nav>
+                <!-- 左边logo -->
+                <a class="navbar-brand " href="./main.html">会议网站(首页)</a>
+            </div>
+            <!-- 需要折叠的内容,collaspe表示折叠默认隐藏，配合navbar-collapse宽频默认显示、移动端隐藏 -->
+            <div class="navbar-collapse collapse">
+                <!-- navbar-nav控制移动端时li为block,nav控制li为float -->
+                <!-- nav类本质是让ul下的li左浮动水平排列，并设置ul和li的样式,也就是基本的导航样式 -->
+                <!-- <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;后台首页</a></li>
+          <li><a href="user_list.html"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户管理</a></li>
+          <li><a href="content.html"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;内容管理</a></li>
+          <li><a href="tag.html"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;标签管理</a></li>
+        </ul> -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- <li class="dropdown">
+              <a class="dropdown-toggle" type="button" href="javascript:void(0);" data-toggle="dropdown" >
+                      admin
+                      <span class="caret"></span>
+                    </a>
+              <ul class="dropdown-menu">
+                    <li><a href="../"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;前台首页</a></li>
+                    <li><a href="../"><span class="glyphicon glyphicon-user"></span>&nbsp;用户主页</a></li>
+                    <li><a href="../"><span class="glyphicon glyphicon-cog"></span>&nbsp;个人设置</a></li>
+                    <li><a href="../"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;账户中心</a></li>
+                    <li><a href="../"><span class="glyphicon glyphicon-heart"></span>&nbsp;我的收藏</a></li>
+                  </ul>
+            </li> -->
+                    <li><a id="yyy"><span
+                                class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;我</a></li>
+                    <li><a href="main.html"><span
+                                class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
       <div id="main" style="width:800px;height:600px;float:left"></div>
       <div id="small" style="width:300px;height:200px;float:left;margin-left:30px;"></div>
     <script type="text/javascript">
